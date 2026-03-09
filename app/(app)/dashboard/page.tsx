@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { AmazonModal } from "@/components/modals/amazon-modal"
 import { EbayModal } from "@/components/modals/ebay-modal"
 import { EtsyModal } from "@/components/modals/etsy-modal"
-import { VintedModal } from "@/components/modals/vinted-modal"
+import { ShopifyModal } from "@/components/modals/shopify-modal"
 
 const PLATFORMS: {
   id: Platform
@@ -49,13 +49,13 @@ const PLATFORMS: {
     devLink: "https://www.etsy.com/developers",
   },
   {
-    id: "vinted",
-    label: "Vinted",
-    color: "#09B1BA",
+    id: "shopify",
+    label: "Shopify",
+    color: "#96BF48",
     textColor: "#fff",
-    abbr: "V",
-    description: "Second-hand fashion marketplace. API access via partnership.",
-    devLink: "https://www.vinted.com",
+    abbr: "SHF",
+    description: "Sync your Shopify storefront with your marketplace listings via the Admin API.",
+    devLink: "https://admin.shopify.com",
   },
 ]
 
@@ -185,7 +185,7 @@ export default function DashboardPage() {
       <AmazonModal open={openModal === "amazon"} onOpenChange={v => !v && setOpenModal(null)} />
       <EbayModal open={openModal === "ebay"} onOpenChange={v => !v && setOpenModal(null)} />
       <EtsyModal open={openModal === "etsy"} onOpenChange={v => !v && setOpenModal(null)} />
-      <VintedModal open={openModal === "vinted"} onOpenChange={v => !v && setOpenModal(null)} />
+      <ShopifyModal open={openModal === "shopify"} onOpenChange={v => !v && setOpenModal(null)} />
     </div>
   )
 }

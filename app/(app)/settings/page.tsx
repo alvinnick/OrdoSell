@@ -25,10 +25,10 @@ import {
 } from "@/components/ui/alert-dialog"
 
 const PLATFORM_META: Record<Platform, { label: string; color: string; abbr: string; devLink: string }> = {
-  amazon: { label: "Amazon", color: "#FF9900", abbr: "AMZ", devLink: "https://sellercentral.amazon.com/apps/manage" },
-  ebay:   { label: "eBay",   color: "#E53238", abbr: "eBay", devLink: "https://developer.ebay.com" },
-  etsy:   { label: "Etsy",   color: "#F56400", abbr: "Etsy", devLink: "https://www.etsy.com/developers" },
-  vinted: { label: "Vinted", color: "#09B1BA", abbr: "V",    devLink: "https://www.vinted.com" },
+  amazon:  { label: "Amazon",  color: "#FF9900", abbr: "AMZ", devLink: "https://sellercentral.amazon.com/apps/manage" },
+  ebay:    { label: "eBay",    color: "#E53238", abbr: "eBay", devLink: "https://developer.ebay.com" },
+  etsy:    { label: "Etsy",    color: "#F56400", abbr: "Etsy", devLink: "https://www.etsy.com/developers" },
+  shopify: { label: "Shopify", color: "#96BF48", abbr: "SHF",  devLink: "https://admin.shopify.com" },
 }
 
 const ROLE_COLORS: Record<string, string> = {
@@ -37,7 +37,7 @@ const ROLE_COLORS: Record<string, string> = {
   Viewer:  "text-muted-foreground bg-secondary",
 }
 
-const ALL_PLATFORMS: Platform[] = ["amazon", "ebay", "etsy", "vinted"]
+const ALL_PLATFORMS: Platform[] = ["amazon", "ebay", "etsy", "shopify"]
 
 export default function SettingsPage() {
   const { connectedAccounts, disconnectAccount, notificationPrefs, setNotificationPrefs } = useApp()

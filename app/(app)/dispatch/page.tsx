@@ -41,11 +41,11 @@ const PLATFORM_COLORS: Record<Platform, string> = {
   amazon: "bg-yellow-900/40 text-yellow-300 border-yellow-700/40",
   ebay:   "bg-blue-900/40 text-blue-300 border-blue-700/40",
   etsy:   "bg-orange-900/40 text-orange-300 border-orange-700/40",
-  vinted: "bg-teal-900/40 text-teal-300 border-teal-700/40",
+  shopify: "bg-green-900/40 text-green-300 border-green-700/40",
 }
 
 const CARRIERS = ["Royal Mail", "DPD", "DHL", "Evri", "Hermes", "UPS", "FedEx", "Yodel", "Parcelforce"]
-const PLATFORMS: Platform[] = ["amazon", "ebay", "etsy", "vinted"]
+const PLATFORMS: Platform[] = ["amazon", "ebay", "etsy", "shopify"]
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
