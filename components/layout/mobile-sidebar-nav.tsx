@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { LayoutDashboard, PlusSquare, List, BarChart2, Truck, Settings } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const navItems = [
   { href: "/dashboard",      label: "Dashboard",      icon: LayoutDashboard },
