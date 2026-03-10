@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react"
 
-export type Platform = "amazon" | "ebay" | "etsy" | "vinted"
+export type Platform = "amazon" | "ebay" | "etsy" | "shopify"
 
 export interface AmazonCredentials {
   sellerId: string
@@ -29,15 +29,18 @@ export interface EtsyCredentials {
   shopId: string
 }
 
-export interface VintedCredentials {
-  email: string
+export interface ShopifyCredentials {
+  storeName: string
+  apiKey: string
+  apiSecretKey: string
+  accessToken: string
 }
 
 export type PlatformCredentials =
   | AmazonCredentials
   | EbayCredentials
   | EtsyCredentials
-  | VintedCredentials
+  | ShopifyCredentials
 
 export interface ConnectedAccount {
   platform: Platform
@@ -140,7 +143,7 @@ function makePrng(seed: number) {
 
 function generateSeedSales(): Sale[] {
   const rand = makePrng(42)
-  const platforms: Platform[] = ["amazon", "ebay", "etsy", "vinted"]
+  const platforms: Platform[] = ["amazon", "ebay", "etsy", "shopify"]
   // Fixed anchor: 2026-03-02 00:00:00 UTC — never changes
   const anchor = new Date("2026-03-02T00:00:00.000Z").getTime()
   const sales: Sale[] = []
@@ -201,7 +204,7 @@ const SEED_SHIPMENTS: Shipment[] = [
     orderId: "ORD-20455",
     listingTitle: "Retro Graphic Tee - XL",
     buyer: "Morgan S.",
-    platform: "vinted",
+    platform: "shopify",
     carrier: "Evri",
     trackingNumber: "EVR9920183746",
     status: "delivered",

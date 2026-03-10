@@ -17,14 +17,14 @@ const PLATFORM_LABELS: Record<Platform, string> = {
   amazon: "Amazon",
   ebay: "eBay",
   etsy: "Etsy",
-  vinted: "Vinted",
+  shopify: "Shopify",
 }
 
 const PLATFORM_COLORS: Record<Platform, string> = {
   amazon: "#FF9900",
   ebay: "#E53238",
   etsy: "#F56400",
-  vinted: "#09B1BA",
+  shopify: "#96BF48",
 }
 
 interface Props {

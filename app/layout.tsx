@@ -17,7 +17,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'OrdoSell — Multi-Channel Marketplace Platform',
-  description: 'Create one listing and publish to Amazon, eBay, Etsy, and Vinted simultaneously.',
+  description: 'Create one listing and publish to Amazon, eBay, Etsy, and Shopify simultaneously.',
   generator: 'v0.app',
 }
 

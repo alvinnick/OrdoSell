@@ -25,7 +25,7 @@ const ALL_PLATFORMS: { id: Platform; label: string }[] = [
   { id: "amazon", label: "Amazon" },
   { id: "ebay", label: "eBay" },
   { id: "etsy", label: "Etsy" },
-  { id: "vinted", label: "Vinted" },
+  { id: "shopify", label: "Shopify" },
 ]
 
 export default function CreateListingPage() {
