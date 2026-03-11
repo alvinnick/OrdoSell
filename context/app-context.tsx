@@ -4,6 +4,53 @@ import React, { createContext, useContext, useState, ReactNode } from "react"
 
 export type Platform = "amazon" | "ebay" | "etsy" | "shopify"
 
+export type StoreCategory =
+  | "furniture"
+  | "toys"
+  | "equipment"
+  | "clothing"
+  | "electronics"
+  | "home"
+  | "sports"
+  | "books"
+  | "art"
+  | "other"
+
+export interface Store {
+  id: string
+  name: string
+  category: StoreCategory
+  description: string
+  platforms: Platform[]
+  createdAt: Date
+}
+
+export const STORE_CATEGORY_LABELS: Record<StoreCategory, string> = {
+  furniture:   "Furniture",
+  toys:        "Toys & Games",
+  equipment:   "Equipment",
+  clothing:    "Clothing",
+  electronics: "Electronics",
+  home:        "Home & Garden",
+  sports:      "Sports & Outdoors",
+  books:       "Books & Media",
+  art:         "Art & Collectibles",
+  other:       "Other",
+}
+
+export const STORE_CATEGORY_COLORS: Record<StoreCategory, string> = {
+  furniture:   "oklch(0.65 0.12 45)",
+  toys:        "oklch(0.70 0.18 320)",
+  equipment:   "oklch(0.60 0.14 250)",
+  clothing:    "oklch(0.72 0.18 168)",
+  electronics: "oklch(0.62 0.16 220)",
+  home:        "oklch(0.68 0.15 140)",
+  sports:      "oklch(0.70 0.20 55)",
+  books:       "oklch(0.65 0.14 30)",
+  art:         "oklch(0.68 0.18 290)",
+  other:       "oklch(0.60 0.04 220)",
+}
+
 export interface AmazonCredentials {
   sellerId: string
   mwsAuthToken: string
@@ -68,6 +115,7 @@ export interface Listing {
   quantity: number
   condition: string
   category: string
+  storeId: string
   images: string[]
   weight: string
   dimensions: string
@@ -123,6 +171,10 @@ interface AppContextType {
   sales: Sale[]
   shipments: Shipment[]
   addShipment: (s: Omit<Shipment, "id">) => void
+  stores: Store[]
+  addStore: (store: Omit<Store, "id" | "createdAt">) => void
+  updateStore: (id: string, updates: Partial<Omit<Store, "id" | "createdAt">>) => void
+  deleteStore: (id: string) => void
   notificationPrefs: NotificationPreferences
   setNotificationPrefs: (prefs: NotificationPreferences) => void
   isDark: boolean
@@ -258,6 +310,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [listings, setListings] = useState<Listing[]>([])
   const [sales] = useState<Sale[]>(generateSeedSales)
   const [shipments, setShipments] = useState<Shipment[]>(SEED_SHIPMENTS)
+  const [stores, setStores] = useState<Store[]>([])
   const [notificationPrefs, setNotificationPrefs] = useState<NotificationPreferences>({ salesAlertEmail: "" })
   const [isDark, setIsDark] = useState(false)
 
@@ -278,6 +331,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const addShipment = (s: Omit<Shipment, "id">) => {
     setShipments(prev => [{ ...s, id: crypto.randomUUID() }, ...prev])
+  }
+
+  const addStore = (store: Omit<Store, "id" | "createdAt">) => {
+    setStores(prev => [{ ...store, id: crypto.randomUUID(), createdAt: new Date() }, ...prev])
+  }
+
+  const updateStore = (id: string, updates: Partial<Omit<Store, "id" | "createdAt">>) => {
+    setStores(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s))
+  }
+
+  const deleteStore = (id: string) => {
+    setStores(prev => prev.filter(s => s.id !== id))
   }
 
   const addListing = (listing: Omit<Listing, "id" | "createdAt" | "status">) => {
@@ -313,6 +378,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
         sales,
         shipments,
         addShipment,
+        stores,
+        addStore,
+        updateStore,
+        deleteStore,
         notificationPrefs,
         setNotificationPrefs,
         isDark,
