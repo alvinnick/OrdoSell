@@ -11,6 +11,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogFooter,
@@ -113,6 +114,9 @@ export function StoreFormModal({ open, onOpenChange, editingStore }: Props) {
           <DialogTitle className="font-display">
             {editingStore ? "Edit Store" : "Create Store"}
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            {editingStore ? "Edit store details" : "Create a new store to organise your listings"}
+          </DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col gap-4 py-2">
