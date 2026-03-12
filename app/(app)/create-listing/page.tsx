@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { useApp } from "@/context/app-context"
 import type { Platform } from "@/context/app-context"
+import { STORE_CATEGORY_LABELS } from "@/context/app-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -29,7 +30,7 @@ const ALL_PLATFORMS: { id: Platform; label: string }[] = [
 ]
 
 export default function CreateListingPage() {
-  const { connectedAccounts, addListing } = useApp()
+  const { connectedAccounts, addListing, stores } = useApp()
   const router = useRouter()
 
   const [title, setTitle] = useState("")
@@ -48,6 +49,7 @@ export default function CreateListingPage() {
   const [freeShipping, setFreeShipping] = useState(true)
   const [shippingAmount, setShippingAmount] = useState("")
   const [selectedPlatforms, setSelectedPlatforms] = useState<Platform[]>([])
+  const [storeId, setStoreId] = useState("")
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
@@ -85,6 +87,7 @@ export default function CreateListingPage() {
       quantity: parseInt(quantity),
       condition,
       category,
+      storeId,
       images,
       weight,
       dimensions,
@@ -237,6 +240,43 @@ export default function CreateListingPage() {
             />
             <p className="text-muted-foreground text-xs">Used by Etsy to improve discoverability. Separate tags with commas.</p>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Store Assignment */}
+      <Card className="bg-card border-border">
+        <CardHeader className="pb-4">
+          <CardTitle className="font-display text-base">Store</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-3">
+          {stores.length === 0 ? (
+            <div className="flex items-center gap-3 rounded-md border border-border px-4 py-3 text-sm text-muted-foreground">
+              No stores created yet.{" "}
+              <a href="/stores" className="text-primary hover:underline">
+                Create a store
+              </a>{" "}
+              to assign this listing to a category.
+            </div>
+          ) : (
+            <>
+              <Select value={storeId} onValueChange={setStoreId}>
+                <SelectTrigger className="bg-input border-border">
+                  <SelectValue placeholder="Assign to a store (optional)" />
+                </SelectTrigger>
+                <SelectContent className="bg-card border-border">
+                  <SelectItem value="">No store</SelectItem>
+                  {stores.map(s => (
+                    <SelectItem key={s.id} value={s.id}>
+                      {s.name} — {STORE_CATEGORY_LABELS[s.category]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">
+                Assign this listing to a store to organise it by category.
+              </p>
+            </>
+          )}
         </CardContent>
       </Card>
 
